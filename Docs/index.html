@@ -37,7 +37,7 @@
 					startColor: [255, 255, 255],
 					imgPath: '../Assets/images/',
 					onChange: function(color) {
-						$('titleColor').value = color.hex;
+						this.element.value = color.hex;
 						Slick.find(document, "h2").setStyle("color", color.hex);
 					}
 				});
