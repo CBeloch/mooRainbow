@@ -1,0 +1,14 @@
+name: mooRainbow
+author: C_BHole
+authors:
+  - "[Djamil Legato (w00fz)](http://moorainbow.woolly-sheep.net)"
+  - "[Christopher Beloch](http://blog.cbeloch.de)"
+category: Widget
+description: "ColorPicker for MooTools"
+tags: [color, picker, colorpicker]
+demo: http://dev.cbeloch.de/MooRetina/Docs/index.html
+current: 1.3
+license: MIT-style
+
+sources:
+  - "Source/mooRainbow.js"
