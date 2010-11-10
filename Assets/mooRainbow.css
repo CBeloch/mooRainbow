@@ -118,7 +118,7 @@ span.moor-ballino { /* Style hue ° (degree) !! */
 	width: 45px;
 }
 .moor-cursor {
-	background-image: url(../images/moor_cursor.gif); 
+	/*background-image: url(images/moor_cursor.gif); */
 	width: 12px;
 	height: 12px;
 }

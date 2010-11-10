@@ -3,7 +3,7 @@
 
 script: mooRainbow.js
 version: 1.3
-description: MooRetina enhances your website for devices with retina display by loading images with a higher resolution
+description: MooRainbow is a ColorPicker for MooTools 1.3
 license: MIT-Style
 authors:
   - Djamil Legato (w00fz)
@@ -517,6 +517,8 @@ var MooRainbow = new Class({
 		this.arrRGB = [this.RedInput, this.GreenInput, this.BlueInput];
 		this.arrHSB = [this.HueInput, this.SatuInput, this.BrighInput];
 		this.okButton = Slick.find(document, '#' + idPrefix + 'okButton');
+		
+		this.layout.cursor.setStyle('background-image', 'url(' + this.options.imgPath + 'moor_cursor.gif)');
 		
 		if (!window.khtml) this.hide();
 	},
