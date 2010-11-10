@@ -4,6 +4,8 @@ mooRainbow
 mooRainbow is a Color-Picker which was originally written by [Djamil Legato (w00fz)](http://moorainbow.woolly-sheep.net).  
 You can attach mooRainbow to any DOM Element. mooRainbow will be opened by clicking on this element.
 
+![Screenshot](http://dev.cbeloch.de/mooRainbow/mooRainbow.png)
+
 How to use
 ----------
 
