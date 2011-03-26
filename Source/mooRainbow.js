@@ -199,6 +199,7 @@ var MooRainbow = new Class({
 				'top': e.page.y - this.layout.overlay.getTop() - curH,
 				'left': e.page.x - this.layout.overlay.getLeft() - curW
 			});
+                        this.overlayDrag.call(this);
 			this.layout.drag.start(e);
 		}.bind(this));
 		
@@ -244,6 +245,7 @@ var MooRainbow = new Class({
 			this.layout.arrows.setStyle(
 				'top', e.page.y - this.layout.slider.getTop() + this.snippet('slider') - arwH
 			);
+                        this.sliderDrag.call(this);
 			this.layout.sliderDrag.start(e);
 		}.bind(this));
 	},
