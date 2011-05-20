@@ -9,7 +9,9 @@ authors:
   - Djamil Legato (w00fz)
   - Christopher Beloch
 
-requires: [Core/*, More/Slider, More/Drag, More/Color]
+requires:
+  core:1.3: [*]
+  more:1.3: [Slider, Drag, Color]
 
 provides: [mooRainbow]
 
@@ -169,8 +171,8 @@ var MooRainbow = new Class({
 		}.bind(this));
 
 		inputs.each(function(el) {
-			el.addEvent('keydown', this.eventKeydown.bind(this, [el]));
-			el.addEvent('keyup', this.eventKeyup.bind(this, [el]));
+			el.addEvent('keydown', this.eventKeydown.bind(this, el));
+			el.addEvent('keyup', this.eventKeyup.bind(this, el));
 		}, this);
 		[this.element, this.layout].each(function(el) {
 			el.addEvents({
@@ -199,6 +201,7 @@ var MooRainbow = new Class({
 				'top': e.page.y - this.layout.overlay.getTop() - curH,
 				'left': e.page.x - this.layout.overlay.getLeft() - curW
 			});
+                        this.overlayDrag.call(this);
 			this.layout.drag.start(e);
 		}.bind(this));
 		
@@ -244,6 +247,7 @@ var MooRainbow = new Class({
 			this.layout.arrows.setStyle(
 				'top', e.page.y - this.layout.slider.getTop() + this.snippet('slider') - arwH
 			);
+                        this.sliderDrag.call(this);
 			this.layout.sliderDrag.start(e);
 		}.bind(this));
 	},
@@ -329,7 +333,7 @@ var MooRainbow = new Class({
 		e.stop();
 	},
 	
-	eventKeydown: function(e, el) {
+	eventKeydown: function(el, e) {
 		var n = e.code, k = e.key;
 
 		if 	((!el.className.test(/hexInput/) && !(n >= 48 && n <= 57)) &&
@@ -337,10 +341,10 @@ var MooRainbow = new Class({
 		e.stop();
 	},
 	
-	eventKeyup: function(e, el) {
+	eventKeyup: function(el, e) {
 		var n = e.code, k = e.key, pass, prefix, chr = el.value.charAt(0);
 
-		if (!$chk(el.value)) return;
+		if (!(el.value || el.value === 0)) return;
 		if (el.className.test(/hexInput/)) {
 			if (chr != "#" && el.value.length != 6) return;
 			if (chr == '#' && el.value.length != 7) return;
@@ -377,7 +381,7 @@ var MooRainbow = new Class({
 			pass = el.value.hexToRgb(true);
 			if (isNaN(pass[0])||isNaN(pass[1])||isNaN(pass[2])) return;
 
-			if ($chk(pass)) {
+			if (pass || pass === 0) {
 				this.manualSet(pass);
 				this.fireEvent('onChange', [this.sets, this]);
 			}
