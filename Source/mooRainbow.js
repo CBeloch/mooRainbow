@@ -9,7 +9,9 @@ authors:
   - Djamil Legato (w00fz)
   - Christopher Beloch
 
-requires: [Core/*, More/Slider, More/Drag, More/Color]
+requires:
+  core:1.3: [*]
+  more:1.3: [Slider, Drag, Color]
 
 provides: [mooRainbow]
 
