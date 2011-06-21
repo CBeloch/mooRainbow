@@ -28,7 +28,7 @@ var MooRainbow = new Class({
 	},
 	
 	initialize: function(el, options) {
-		this.element = $(el); if (!this.element) return;
+		this.element = document.id(el); if (!this.element) return;
 		this.setOptions(options);
 		
 		this.sliderPos = 0;
