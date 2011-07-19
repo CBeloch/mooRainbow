@@ -70,11 +70,13 @@ var MooRainbow = new Class({
 	show: function() {
 		this.rePosition();
 		this.layout.setStyle('display', 'block');
+		this.layout.set('aria-hidden', 'false');
 		this.visible = true;
 	},
 	
 	hide: function() {
 		this.layout.setStyles({'display': 'none'});
+		this.layout.set('aria-hidden', 'true');
 		this.visible = false;
 	},
 	
