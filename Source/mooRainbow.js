@@ -270,15 +270,23 @@ var MooRainbow = new Class({
 
 		arrColors.each(function(el) {
 			el.addEvents({
-				'mousewheel': this.eventKeys.bindWithEvent(this, el),
-				'keydown': this.eventKeys.bindWithEvent(this, el)
+				'mousewheel': function(e) {
+					this.eventKeys(e, el);
+				}.bind(this),
+				'keydown': function(e) {
+					this.eventKeys(e, el);
+				}.bind(this),
 			});
 		}, this);
 		
 		[this.layout.arrows, this.layout.slider].each(function(el) {
 			el.addEvents({
-				'mousewheel': this.eventKeys.bindWithEvent(this, [this.arrHSB[0], 'slider']),
-				'keydown': this.eventKeys.bindWithEvent(this, [this.arrHSB[0], 'slider'])
+				'mousewheel': function(e) {
+					this.eventKeys(e, this.arrHSB[0], 'slider');
+				}.bind(this),
+				'keydown': function(e) {
+					this.eventKeys(e, this.arrHSB[0], 'slider');
+				}.bind(this)
 			});
 		}, this);
 	},
