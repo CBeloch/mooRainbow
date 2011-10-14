@@ -174,9 +174,8 @@ var MooRainbow = new Class({
 		}, this);
 		[this.element, this.layout].each(function(el) {
 			el.addEvents({
-				'click': function(e) { new Event(e).stop(); },
+				'click': function(e) { e.stop(); },
 				'keyup': function(e) {
-					e = new Event(e);
 					if(e.key == 'esc' && this.visible) this.hide(this.layout);
 				}.bind(this)
 			}, this);
@@ -194,7 +193,6 @@ var MooRainbow = new Class({
 		});	
 		
 		this.layout.overlay2.addEvent('mousedown', function(e){
-			e = new Event(e);
 			this.layout.cursor.setStyles({
 				'top': e.page.y - this.layout.overlay.getTop() - curH,
 				'left': e.page.x - this.layout.overlay.getLeft() - curW
@@ -239,8 +237,6 @@ var MooRainbow = new Class({
 		});	
 	
 		this.layout.slider.addEvent('mousedown', function(e){
-			e = new Event(e);
-
 			this.layout.arrows.setStyle(
 				'top', e.page.y - this.layout.slider.getTop() + this.snippet('slider') - arwH
 			);
@@ -270,15 +266,23 @@ var MooRainbow = new Class({
 
 		arrColors.each(function(el) {
 			el.addEvents({
-				'mousewheel': this.eventKeys.bindWithEvent(this, el),
-				'keydown': this.eventKeys.bindWithEvent(this, el)
+				'mousewheel': function(e) {
+					this.eventKeys(e, el);
+				}.bind(this),
+				'keydown': function(e) {
+					this.eventKeys(e, el);
+				}.bind(this),
 			});
 		}, this);
 		
 		[this.layout.arrows, this.layout.slider].each(function(el) {
 			el.addEvents({
-				'mousewheel': this.eventKeys.bindWithEvent(this, [this.arrHSB[0], 'slider']),
-				'keydown': this.eventKeys.bindWithEvent(this, [this.arrHSB[0], 'slider'])
+				'mousewheel': function(e) {
+					this.eventKeys(e, this.arrHSB[0], 'slider');
+				}.bind(this),
+				'keydown': function(e) {
+					this.eventKeys(e, this.arrHSB[0], 'slider');
+				}.bind(this)
 			});
 		}, this);
 	},
