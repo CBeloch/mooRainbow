@@ -3,6 +3,7 @@ mooRainbow
 
 mooRainbow is a Color-Picker which was originally written by [Djamil Legato (w00fz)](http://moorainbow.woolly-sheep.net).  
 You can attach mooRainbow to any DOM Element. mooRainbow will be opened by clicking on this element.
+Works with mooTools 1.3 and 1.4.
 
 ![Screenshot](http://dev.cbeloch.de/mooRainbow/mooRainbow.png)
 ![Screenshot](http://dev.cbeloch.de/mooRainbow/screenshot.png)

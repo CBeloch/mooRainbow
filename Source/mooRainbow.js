@@ -3,7 +3,7 @@
 
 script: mooRainbow.js
 version: 1.3
-description: MooRainbow is a ColorPicker for MooTools 1.3
+description: MooRainbow is a ColorPicker for MooTools 1.3 and higher
 license: MIT-Style
 authors:
   - Djamil Legato (w00fz)
