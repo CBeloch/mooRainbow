@@ -39,18 +39,18 @@ That's it!
 
 If you'd like to have an input with an icon to click on then you can use this type of markup (there are 2 icons: rainbow and palette included for your use)
 
-  #HTML
-  <label for="colour">Colour</label>
-  <input size="7" type="text" name="colour" value="" id="colour"> 
-  <img src="Assets/images/rainbow.png" alt="" width="16" height="16" class="rain" id="mooRainbow_colour">
+	#HTML
+	<label for="colour">Colour</label>
+	<input size="7" type="text" name="colour" value="" id="colour"> 
+	<img src="Assets/images/rainbow.png" alt="" width="16" height="16" class="rain" id="mooRainbow_colour">
   
-  #JS
-  var r = new MooRainbow('mooRainbow_colour', {
-    imgPath: 'Assets/images/',
-    onChange: function(color) {
-      $('colour').value = color.hex;
-    }
-  });
+	#JS
+	var r = new MooRainbow('mooRainbow_colour', {
+		imgPath: 'Assets/images/',
+		onChange: function(color) {
+			$('colour').value = color.hex;
+		}
+	});
 
 Detailed Documentation
 ----------------------
