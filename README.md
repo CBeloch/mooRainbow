@@ -68,7 +68,8 @@ Detailed Documentation
 
 - id - *the id of mooRainbow (default: 'mooRainbow')  
 	**Note**: every object must have an unique id.*
-- prefix - *the prefix for your CSS classnames (default: 'moor-')	i.e.: prefix: 'moor-' => in your CSS: .moor-okButton { color: #fff; }*
+- prefix - *the prefix for your CSS classnames (default: 'moor-')	
+        i.e.: prefix: 'moor-' => in your CSS: .moor-okButton { color: #fff; }*
 - imgPath - *the path where the slider and the overlay images are contained (default: 'images/')  
 	**Note**: always put the '/' at the end*
 - wheel - *allow the mousewheel to control the slider - default: false*
@@ -77,4 +78,4 @@ Detailed Documentation
 - onChange - *a function to fire when the color change*
 - onComplete - *a function to fire when the color change is complete - clicked on Select*
 
-Credit: Palette and Rainbow icons from FamFamFam Silk icon set - http://www.famfamfam.com/lab/icons/silk/
+_Credit: Palette and Rainbow icons from FamFamFam Silk icon set - http://www.famfamfam.com/lab/icons/silk/_
