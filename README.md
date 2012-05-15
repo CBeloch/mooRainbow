@@ -1,13 +1,13 @@
 mooRainbow
 ==========
 
-![Screenshot](https://github.com/CBeloch/mooRainbow/blob/master/mooRainbow.png)
+![Screenshot](https://github.com/CBeloch/mooRainbow/blob/master/mooRainbow.png?raw=true)
 
 mooRainbow is a Color-Picker which was originally written by [Djamil Legato (w00fz)](http://moorainbow.woolly-sheep.net).  
 You can attach mooRainbow to any DOM Element. mooRainbow will be opened by clicking on this element.
 Works with mooTools 1.3 and 1.4 (tested up to 1.4.5).
 
-![Screenshot](https://github.com/CBeloch/mooRainbow/blob/master/screenshot.png)
+![Screenshot](https://github.com/CBeloch/mooRainbow/blob/master/screenshot.png?raw=true)
 
 How to use
 ----------

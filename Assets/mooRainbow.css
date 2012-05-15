@@ -26,15 +26,15 @@
 	cursor: pointer;
 }
 .moor-colorBox {
-	/*border: 1px solid #000;*/ 
-	height: 130px;
+	border: 1px solid black;
+	height: 128px;
 	margin-left: 154px;
 	margin-top: 3px;
 	width: 32px;
 }
 .moor-currentColor { /* Bottom Box Color, the colour you selected previously */
-	height: 65px;
-	margin-left: 154px;
+	height: 64px;
+	margin-left: 155px;
 	margin-top: 68px;
 	width: 32px;
 }
@@ -115,9 +115,9 @@ input.moor-hexInput {
 	height: 9px;
 }
 .moor-chooseColor { /* Top Box Color, the currently choosen one */
-	height: 65px;
-	margin-left: 154px;
-	margin-top: 3px;
+	height: 64px;
+	margin-left: 155px;
+	margin-top: 4px;
 	width: 32px;
 }
 
