@@ -19,6 +19,8 @@ provides: [mooRainbow]
 */
  
 var MooRainbow = new Class({
+  Implements:    [ Options, Events ],
+  
 	options: {
 		id: 'mooRainbow',
 		prefix: 'moor-',
@@ -42,7 +44,7 @@ var MooRainbow = new Class({
 			hsb: [],
 			hex: []	
 		};
-		this.pickerClick = this.sliderClick  = false;
+		this.pickerClick = this.sliderClick = false;
 		if (!this.layout) this.doLayout();
 		this.OverlayEvents();
 		this.sliderEvents();
@@ -66,7 +68,7 @@ var MooRainbow = new Class({
 	},
 	
 	toggle: function() {
-		this[this.visible ? 'hide' : 'show']()
+		this[this.visible ? 'hide' : 'show']();
 	},
 	
 	show: function() {
@@ -135,19 +137,17 @@ var MooRainbow = new Class({
 		if (!this.pickerPos.x)
 			this.autoSet(hsb);		
 
-		this.RedInput.value = rgb[0];
+		this.RedInput.value   = rgb[0];
 		this.GreenInput.value = rgb[1];
-		this.BlueInput.value = rgb[2];
-		this.HueInput.value = hsb[0];
-		this.SatuInput.value =  hsb[1];
+		this.BlueInput.value  = rgb[2];
+		this.HueInput.value   = hsb[0];
+		this.SatuInput.value  = hsb[1];
 		this.BrighInput.value = hsb[2];
-		this.hexInput.value = hex;
+		this.hexInput.value   = hex;
 		
 		this.currentColor = rgb;
 
 		this.chooseColor.setStyle('background-color', rgb.rgbToHex());
-		
-		this.fireEvent('onChange', [this.sets, this]);
 	},
 	
 	parseColors: function(x, y, z) {
@@ -158,7 +158,7 @@ var MooRainbow = new Class({
 		h = (h >= 360) ? 0 : (h < 0) ? 0 : h;
 		s = (s > 100) ? 100 : (s < 0) ? 0 : s;
 		b = (b > 100) ? 100 : (b < 0) ? 0 : b;
-
+		
 		return [h, s, b];
 	},
 	
@@ -173,8 +173,13 @@ var MooRainbow = new Class({
 		}.bind(this));
 
 		inputs.each(function(el) {
-			el.addEvent('keydown', this.eventKeydown.bind(this, el));
-			el.addEvent('keyup', this.eventKeyup.bind(this, el));
+			el.addEvent('keydown', function (e) {
+					this.eventKeydown(el, e);
+			}.bind(this));
+
+			el.addEvent('keyup', function (e) {
+					this.eventKeyup(el, e);
+			}.bind(this));
 		}, this);
 		[this.element, this.layout].each(function(el) {
 			el.addEvents({
@@ -186,8 +191,8 @@ var MooRainbow = new Class({
 		}, this);
 		
 		lim = {
-			x: [0 - curW, (this.layout.overlay.width - curW)],
-			y: [0 - curH, (this.layout.overlay.height - curH)]
+			x: [(0 - curW), (this.layout.overlay.width - curW)],
+			y: [(0 - curH), (this.layout.overlay.height - curH)]
 		};
 
 		this.layout.drag = new Drag(this.layout.cursor, {
@@ -201,7 +206,7 @@ var MooRainbow = new Class({
 				'top': e.page.y - this.layout.overlay.getTop() - curH,
 				'left': e.page.x - this.layout.overlay.getLeft() - curW
 			});
-                        this.overlayDrag.call(this);
+			this.overlayDrag.call(this);
 			this.layout.drag.start(e);
 		}.bind(this));
 		
@@ -232,7 +237,7 @@ var MooRainbow = new Class({
 	sliderEvents: function() {
 		var arwH = this.snippet('arrSize', 'int'), lim;
 
-		lim = [0 + this.snippet('slider') - arwH, this.layout.slider.height - arwH + this.snippet('slider')];
+		lim = [(0 + this.snippet('slider') - arwH), this.layout.slider.height - arwH + this.snippet('slider')];
 		this.layout.sliderDrag = new Drag(this.layout.arrows, {
 			limit: {y: lim},
 			modifiers: {x: false},
@@ -245,7 +250,7 @@ var MooRainbow = new Class({
 			this.layout.arrows.setStyle(
 				'top', e.page.y - this.layout.slider.getTop() + this.snippet('slider') - arwH
 			);
-                        this.sliderDrag.call(this);
+			this.sliderDrag.call(this);
 			this.layout.sliderDrag.start(e);
 		}.bind(this));
 	},
@@ -268,7 +273,7 @@ var MooRainbow = new Class({
 	},
 	
 	wheelEvents: function() {
-		var arrColors = this.arrRGB.copy().extend(this.arrHSB);
+		var arrColors = this.arrRGB.clone().extend(this.arrHSB);
 
 		arrColors.each(function(el) {
 			el.addEvents({
@@ -277,8 +282,7 @@ var MooRainbow = new Class({
 				}.bind(this),
 				'keydown': function(e) {
 					this.eventKeys(e, el);
-				}.bind(this),
-
+				}.bind(this)
 			});
 		}, this);
 		
@@ -302,10 +306,12 @@ var MooRainbow = new Class({
 			if (e.key == 'up') wheel = 1;
 			else if (e.key == 'down') wheel = -1;
 			else return;
-		} else if (e.type == Element.Events.mousewheel.type) wheel = (e.wheel > 0) ? 1 : -1;
+		} 
+		else if (e.type == 'mousewheel') wheel = (e.wheel > 0) ? 1 : -1;
+		else wheel = 0; // so don't get NaN when adding wheel
 
-		if (this.arrRGB.test(el)) type = 'rgb';
-		else if (this.arrHSB.test(el)) type = 'hsb';
+		if (this.arrRGB.contains(el)) type = 'rgb';
+		else if (this.arrHSB.contains(el)) type = 'hsb';
 		else type = 'hsb';
 
 		if (type == 'rgb') {
@@ -324,7 +330,7 @@ var MooRainbow = new Class({
 		} else {
 			var rgb = this.sets.rgb, hsb = this.sets.hsb, prefix = this.options.prefix, pass;
 			var value = el.value.toInt() + wheel;
-
+			
 			if (el.className.test(/(HueInput)/)) value = (value > 359) ? 0 : (value < 0) ? 0 : value;
 			else value = (value > 100) ? 100 : (value < 0) ? 0 : value;
 
@@ -343,9 +349,8 @@ var MooRainbow = new Class({
 	eventKeydown: function(el, e) {
 		var n = e.code, k = e.key;
 
-		if 	((!el.className.test(/hexInput/) && !(n >= 48 && n <= 57)) &&
-			(k!='backspace' && k!='tab' && k !='delete' && k!='left' && k!='right'))
-		e.stop();
+		if ((!el.className.test(/hexInput/) && !(n >= 48 && n <= 57)) && (!['backspace', 'tab', 'delete', 'left', 'right'].contains(k)))
+			e.stop();
 	},
 	
 	eventKeyup: function(el, e) {
@@ -356,13 +361,13 @@ var MooRainbow = new Class({
 			if (chr != "#" && el.value.length != 6) return;
 			if (chr == '#' && el.value.length != 7) return;
 		} else {
-			if (!(n >= 48 && n <= 57) && (!['backspace', 'tab', 'delete', 'left', 'right'].test(k)) && el.value.length > 3) return;
+			if (!(n >= 48 && n <= 57) && (!['backspace', 'tab', 'delete', 'left', 'right'].contains(k)) && el.value.length > 3) return;
 		}
 		
 		prefix = this.options.prefix;
 
 		if (el.className.test(/(rInput|gInput|bInput)/)) {
-			if (el.value  < 0 || el.value > 255) return;
+			if (el.value < 0 || el.value > 255) return;
 			switch(el.className){
 				case prefix + 'rInput': pass = [el.value, this.sets.rgb[1], this.sets.rgb[2]]; break;
 				case prefix + 'gInput': pass = [this.sets.rgb[0], el.value, this.sets.rgb[2]]; break;
@@ -373,9 +378,9 @@ var MooRainbow = new Class({
 			this.fireEvent('onChange', [this.sets, this]);
 		}
 		else if (!el.className.test(/hexInput/)) {
-			if (el.className.test(/HueInput/) && el.value  < 0 || el.value > 360) return;
+			if (el.className.test(/HueInput/) && (el.value < 0 || el.value > 360)) return;
 			else if (el.className.test(/HueInput/) && el.value == 360) el.value = 0;
-			else if (el.className.test(/(SatuInput|BrighInput)/) && el.value  < 0 || el.value > 100) return;
+			else if (el.className.test(/(SatuInput|BrighInput)/) && (el.value < 0 || el.value > 100)) return;
 			switch(el.className){
 				case prefix + 'HueInput': pass = [el.value, this.sets.hsb[1], this.sets.hsb[2]]; break;
 				case prefix + 'SatuInput': pass = [this.sets.hsb[0], el.value, this.sets.hsb[2]]; break;
@@ -406,7 +411,7 @@ var MooRainbow = new Class({
 		}).inject(document.body);
 
 		var box = new Element('div', {
-			'styles':  {'position': 'relative'},
+			'styles': {'position': 'relative'},
 			'class': prefix + 'box'
 		}).inject(this.layout);
 			
@@ -499,7 +504,9 @@ var MooRainbow = new Class({
 		SA.appendText(' %'); BR.appendText(' %');
 		(new Element('span', {'styles': {'position': 'absolute'}, 'class': prefix + 'ballino'}).set('html', " &deg;").inject(HU, 'after'));
 
-		var hex = new Element('label').inject(box).setStyle('position', 'absolute').addClass(prefix + 'hexLabel').appendText('#hex: ').adopt(new Element('input').addClass(prefix + 'hexInput'));
+		var hex = new Element('div').inject(box).setStyle('position', 'absolute').addClass(prefix + 'hexLabel');
+		hex.adopt(new Element('label').appendText('#hex: '));
+		hex.adopt(new Element('input').addClass(prefix + 'hexInput'));
 		
 		var ok = new Element('input', {
 			'styles': {'position': 'absolute'},
@@ -542,7 +549,7 @@ var MooRainbow = new Class({
 	},
 	
 	snippet: function(mode, type) {
-		var size; type = (type) ? type : 'none';
+		var size; type = type || 'none';
 
 		switch(mode) {
 			case 'arrPos':
@@ -569,10 +576,8 @@ var MooRainbow = new Class({
 				h = (type == 'int') ? (h/2).toInt() : h;
 				w = (type == 'int') ? (w/2).toInt() : w;
 				size = {w: w, h: h};
-		};
+		}
+		
 		return size;
 	}
 });
-
-MooRainbow.implement(new Options);
-MooRainbow.implement(new Events);
