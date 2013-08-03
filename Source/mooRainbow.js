@@ -535,9 +535,25 @@ var MooRainbow = new Class({
 	},
 	rePosition: function() {
 		var coords = this.element.getCoordinates();
+		var pageHeight = window.getSize().y;
+		var pageScrollTop = window.getScroll().y;
+		var layoutDimensions = this.layout.getDimensions();
+
+		var availableSpaceTo = {
+			top: coords.top - pageScrollTop,
+			bottom: pageHeight - coords.height - coords.top + pageScrollTop
+		};
+
+		var top = coords.top + coords.height + 1;
+
+		if (availableSpaceTo.bottom - layoutDimensions.height < 0 && availableSpaceTo.top > availableSpaceTo.bottom) {
+			// show layout on top of element, if on bottom is not enough space
+			top = coords.top - layoutDimensions.height - 1;
+		}
+
 		this.layout.setStyles({
 			'left': coords.left,
-			'top': coords.top + coords.height + 1
+			'top': top
 		});
 	},
 	

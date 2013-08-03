@@ -10,6 +10,7 @@
 	height: 110px; 
 	border: 1px solid #636163; 
 	background-color: #f9f9f9;
+	overflow: hidden;
 }
 .moor-overlayBox {
 	width: 80px; /* Width and Height of the overlay must be setted here: default 256x256 */
@@ -83,7 +84,7 @@ label {
 	margin-top: 190px;
 	margin-left: 315px;
 }
-span.moor-ballino { /* Style hue ° (degree) !! */
+span.moor-ballino { /* Style hue ï¿½ (degree) !! */
 	/*display: none;*/
 	visibility: hidden;
 	margin-top: 190px;
